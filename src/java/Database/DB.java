@@ -61,9 +61,12 @@ public class DB {
         return dataList;
     }
 
-    //0 - ok
-    //1 - not exist
-    //2 - incorrect pw
+    /**
+     *
+     * @param username
+     * @param password
+     * @return 0 - ok; 1 - not exist; 2 - incorrect pw
+     */
     public static int checkAdmin(String username, String password) {
         int status = 1;
         try {

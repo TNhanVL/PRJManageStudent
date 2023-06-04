@@ -1,33 +1,15 @@
-<%-- 
-    Document   : studentList
-    Created on : Jun 1, 2023, 2:48:19 PM
-    Author     : TTNhan
---%>
+<%-- Document : studentList Created on : Jun 1, 2023, 2:48:19 PM Author : TTNhan --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 
 <%@page import="java.util.ArrayList" %>
 <%@page import="Model.Student" %>
 
 <%-- check login --%>
-<%
-    boolean loged = false;
-    String username = "";
-    try{
-        for(Cookie cookie: request.getCookies()){
-            if(cookie.getName().equals("username")){
-                username=cookie.getValue();
-                break;
-            }
-        }
-    }catch(Exception e){
-        response.sendRedirect("index.jsp");
-        return;
-    }
-    if(username == ""){
-        response.sendRedirect("index.jsp");
-        return;
-    }%>
+<% boolean loged=false; String username="" ; try{ for(Cookie cookie: request.getCookies()){
+    if(cookie.getName().equals("username")){ username=cookie.getValue(); break; } } }catch(Exception
+    e){ response.sendRedirect("index.jsp"); return; } if(username=="" ){
+    response.sendRedirect("index.jsp"); return; }%>
 
 <jsp:include page="head.jsp">
     <jsp:param name="title" value="Student List" />
@@ -36,8 +18,11 @@
 
 <div class="container-fluid">
 
-    <h1>Student List</h1>
-    <button id="cancelButton" class="btn btn-danger btn-block">Cancel</button>
+    <div class="studentListTitle">
+        <h1>Student List</h1>
+        <button id="cancelButton" class="btn btn-danger btn-block"><i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i> Logout</button>
+    </div>
+
     <div class="row">
         <!-- left column -->
         <div class="col-md-12">
@@ -61,10 +46,9 @@
                             <th>Address</th>
                             <th>Modify</th>
                         </tr>
-                        <%
-                            ArrayList<Student> dataList = new ArrayList<>();
-                            dataList = Database.DB.getStudents();
-                            for (int i = 0; i < dataList.size(); i++) { %>
+                        <% ArrayList<Student> dataList = new ArrayList<>();
+                                dataList = Database.DB.getStudents();
+                                for (int i = 0; i < dataList.size(); i++) { %>
                         <tr>
                             <td>
                                 <%out.println(dataList.get(i).getID());%>
@@ -88,10 +72,12 @@
                                 <%out.println(dataList.get(i).getAddress());%>
                             </td>
                             <td>
-                                <a href="/user/edit?id=<%out.println(dataList.get(i).getID());%>">
+                                <a
+                                    href="/user/edit?id=<%out.println(dataList.get(i).getID());%>">
                                     <i class="fas fa-solid fa-pen"></i>
                                 </a>
-                                <a href="/user/delete?id=<%out.println(dataList.get(i).getID());%>">
+                                <a
+                                    href="/user/delete?id=<%out.println(dataList.get(i).getID());%>">
                                     <i class="far fa-trash-alt"
                                        style="color: #e60a0a;"></i>
                                 </a>
@@ -112,4 +98,4 @@
 </div><!-- /.container-fluid -->
 
 
-<jsp:include page="foot.jsp"/>
+<jsp:include page="foot.jsp" />
