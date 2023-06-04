@@ -5,6 +5,25 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Database.DB" %>
+
+<% 
+    boolean loged = false;
+    String username = "";
+    try {
+        for (Cookie cookie : request.getCookies()) {
+            if (cookie.getName().equals("username")) {
+                username = cookie.getValue();
+                break;
+            }
+        }
+    } catch (Exception e) {
+    }
+    if (DB.checkAdmin(username, "") != 1) {
+        response.sendRedirect("studentList.jsp");
+        return;
+    }
+%>
 
 <jsp:include page="head.jsp">
     <jsp:param name="title" value="Login"/>

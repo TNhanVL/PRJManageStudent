@@ -32,6 +32,35 @@ public class DB {
         conn.close();
     }
 
+    public static Student getStudent(String ID) {
+        Student student = new Student();
+
+        try {
+            connect();
+            statement = conn.prepareStatement("select * from students where StudentID = ?");
+            statement.setString(1, ID);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                student = new Student(
+                        resultSet.getString("StudentID"),
+                        resultSet.getString("StudentName"),
+                        resultSet.getDate("Birthday"),
+                        resultSet.getString("Gender"),
+                        resultSet.getString("Email"),
+                        resultSet.getString("Phone"),
+                        resultSet.getString("Address")
+                );
+            }
+            disconnect();
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return student;
+    }
+
     public static ArrayList<Student> getStudents() {
         ArrayList<Student> dataList = new ArrayList<>();
 
@@ -93,6 +122,25 @@ public class DB {
         return status;
     }
 
+    public static boolean checkStudent(String ID) {
+        boolean exist = false;
+        try {
+            connect();
+            statement = conn.prepareStatement("select StudentID from students where StudentID = ?");
+            statement.setString(1, ID);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                exist = true;
+            }
+
+            disconnect();
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return exist;
+    }
+
 //    public static void insertUser(User user) {
 //        try {
 //            connect();
@@ -121,18 +169,20 @@ public class DB {
 //            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //    }
-//
-//    public static void deleteUser(int ID) {
-//        try {
-//            connect();
-//            statement = conn.prepareStatement("delete from user where id=?");
-//            statement.setString(1, String.valueOf(ID));
-//            statement.execute();
-//            disconnect();
-//        } catch (SQLException | ClassNotFoundException ex) {
-//            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
+    public static boolean deleteStudent(String ID) {
+        try {
+            connect();
+            statement = conn.prepareStatement("delete from students where StudentID=?");
+            statement.setString(1, ID);
+            statement.execute();
+            disconnect();
+            return true;
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
 //        try {
 //            connect();

@@ -20,6 +20,10 @@ public class Student {
     private String Phone;
     private String Address;
 
+    public Student() {
+        
+    }
+
     public Student(String ID, String Name, Date Birthday, String Gender, String Email, String Phone, String Address) {
         this.ID = ID;
         this.Name = Name;
