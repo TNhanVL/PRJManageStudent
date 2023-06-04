@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +31,38 @@ public class DB {
 
     private static void disconnect() throws SQLException {
         conn.close();
+    }
+
+    /**
+     *
+     * @param username
+     * @param password
+     * @return 0 - ok; 1 - not exist; 2 - incorrect pw
+     */
+    public static int checkAdmin(String username, String password) {
+        int status = 1;
+        try {
+            connect();
+            statement = conn.prepareStatement("select Password from admins where Username = ?");
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (!resultSet.next()) {
+                status = 1;
+            } else {
+                String pw = resultSet.getString("Password");
+                if (pw.equals(password)) {
+                    status = 0;
+                } else {
+                    status = 2;
+                }
+            }
+
+            disconnect();
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return status;
     }
 
     public static Student getStudent(String ID) {
@@ -90,38 +123,6 @@ public class DB {
         return dataList;
     }
 
-    /**
-     *
-     * @param username
-     * @param password
-     * @return 0 - ok; 1 - not exist; 2 - incorrect pw
-     */
-    public static int checkAdmin(String username, String password) {
-        int status = 1;
-        try {
-            connect();
-            statement = conn.prepareStatement("select Password from admins where Username = ?");
-            statement.setString(1, username);
-            ResultSet resultSet = statement.executeQuery();
-
-            if (!resultSet.next()) {
-                status = 1;
-            } else {
-                String pw = resultSet.getString("Password");
-                if (pw.equals(password)) {
-                    status = 0;
-                } else {
-                    status = 2;
-                }
-            }
-
-            disconnect();
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return status;
-    }
-
     public static boolean checkStudent(String ID) {
         boolean exist = false;
         try {
@@ -141,11 +142,11 @@ public class DB {
         return exist;
     }
 
-//    public static void insertUser(User user) {
+//    public static void insertStudent(Student user) {
 //        try {
 //            connect();
 //            statement = conn.prepareStatement("insert into user(user_name, password, full_name) values(?, ?, ?)");
-//            statement.setString(1, user.getUser_name());
+//            statement.setString(1, user.getStudent_name());
 //            statement.setString(2, user.getPassword());
 //            statement.setString(3, user.getFull_name());
 //            statement.execute();
@@ -155,20 +156,26 @@ public class DB {
 //        }
 //    }
 //
-//    public static void updateUser(User user) {
-//        try {
-//            connect();
-//            statement = conn.prepareStatement("update user set user_name=?, password=?, full_name=? where id=?");
-//            statement.setString(1, user.getUser_name());
-//            statement.setString(2, user.getPassword());
-//            statement.setString(3, user.getFull_name());
-//            statement.setString(4, String.valueOf(user.getID()));
-//            statement.executeUpdate();
-//            disconnect();
-//        } catch (SQLException | ClassNotFoundException ex) {
-//            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
+    public static void updateStudent(Student student) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+            connect();
+            statement = conn.prepareStatement("update students set StudentName=?, Birthday=?, Gender=?, Email=?, Phone=?, Address=? where StudentID=?");
+            statement.setString(7, student.getID());
+            statement.setString(1, student.getName());
+            statement.setString(2, dateFormat.format(student.getBirthday()));
+            statement.setString(3, student.getGender());
+            statement.setString(4, student.getEmail());
+            statement.setString(5, student.getPhone());
+            statement.setString(6, student.getAddress());
+            statement.executeUpdate();
+            disconnect();
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public static boolean deleteStudent(String ID) {
         try {
             connect();
@@ -195,6 +202,6 @@ public class DB {
 //            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 
-//        System.out.println(checkUserExist("Nhan"));
+//        System.out.println(checkStudentExist("Nhan"));
     }
 }

@@ -3,6 +3,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
 <%@page import="java.util.ArrayList" %>
+<%@page import="java.text.SimpleDateFormat" %>
 <%@page import="Model.Student" %>
 <%@page import="Database.DB" %>
 
@@ -58,33 +59,36 @@
                         for (int i = 0; i < dataList.size(); i++) { %>
                 <tr>
                     <td>
-                        <%out.println(dataList.get(i).getID());%>
+                        <%out.print(dataList.get(i).getID());%>
                     </td>
                     <td>
-                        <%out.println(dataList.get(i).getName());%>
+                        <%out.print(dataList.get(i).getName());%>
                     </td>
                     <td>
-                        <%out.println(dataList.get(i).getBirthday());%>
+                        <%
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                            out.print(dateFormat.format(dataList.get(i).getBirthday()));
+                        %>
                     </td>
                     <td>
-                        <%out.println(dataList.get(i).getGender());%>
+                        <%out.print(dataList.get(i).getGender());%>
                     </td>
                     <td>
-                        <%out.println(dataList.get(i).getEmail());%>
+                        <%out.print(dataList.get(i).getEmail());%>
                     </td>
                     <td>
-                        <%out.println(dataList.get(i).getPhone());%>
+                        <%out.print(dataList.get(i).getPhone());%>
                     </td>
                     <td>
-                        <%out.println(dataList.get(i).getAddress());%>
+                        <%out.print(dataList.get(i).getAddress());%>
                     </td>
                     <td>
                         <a
-                            href="./Student/edit?id=<%out.println(dataList.get(i).getID());%>">
+                            href="./Student/edit?id=<%out.print(dataList.get(i).getID());%>">
                             <i class="fas fa-solid fa-pen"></i>
                         </a>
                         <a
-                            href="./Student/delete?id=<%out.println(dataList.get(i).getID());%>">
+                            href="./Student/delete?id=<%out.print(dataList.get(i).getID());%>">
                             <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
                         </a>
                     </td>

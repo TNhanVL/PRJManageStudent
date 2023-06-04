@@ -4,7 +4,7 @@
  */
 package Model;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *
@@ -21,7 +21,7 @@ public class Student {
     private String Address;
 
     public Student() {
-        
+
     }
 
     public Student(String ID, String Name, Date Birthday, String Gender, String Email, String Phone, String Address) {

@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+<%@page import="java.text.SimpleDateFormat" %>
 <%@page import="java.util.ArrayList" %>
 <%@page import="Model.Student" %>
 <%@page import="Database.DB" %>
@@ -70,45 +71,48 @@
                     Student student = DB.getStudent(ID);
                 %>
 
-                <form action="edit" method="post" id="updateStudentForm">
+                <form action="Student/edit" method="post" id="updateStudentForm">
                     <div class="card-body">
 
                         <div class="form-group">
                             <label for="exampleInputEmail1">StudentID</label>
-                            <input type="text" class="form-control" value="<%out.println(student.getID());%>" disabled>
+                            <input type="text" class="form-control" value="<%out.print(student.getID());%>" disabled>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="id" value="<%out.println(student.getID());%>" style="display: none">
+                            <input type="text" name="id" value="<%out.print(student.getID());%>" style="display: none">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Student Name</label>
                             <input type="text" class="form-control" id="name"
-                                   name="name" placeholder="Student Name" value="<%out.println(student.getName());%>" required>
+                                   name="name" placeholder="Student Name" value="<%out.print(student.getName());%>" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Birthday</label>
                             <input type="date" class="form-control" id="birthday"
-                                   name="birthday" placeholder="Birthday" value="<%out.println(student.getBirthday());%>" required>
+                                   name="birthday" placeholder="Birthday" value="<%
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                            out.print(dateFormat.format(student.getBirthday()));
+                                   %>" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Gender</label>
                             <input type="text" class="form-control" id="gender"
-                                   name="gender" placeholder="Gender" value="<%out.println(student.getGender());%>" required>
+                                   name="gender" placeholder="Gender" value="<%out.print(student.getGender());%>" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Email</label>
                             <input type="email" class="form-control" id="email"
-                                   name="email" placeholder="Email" value="<%out.println(student.getEmail());%>" required>
+                                   name="email" placeholder="Email" value="<%out.print(student.getEmail());%>" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Phone</label>
                             <input type="text" class="form-control" id="phone"
-                                   name="phone" placeholder="Phone" value="<%out.println(student.getPhone());%>" required>
+                                   name="phone" placeholder="Phone" value="<%out.print(student.getPhone());%>" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Address</label>
                             <input type="text" class="form-control" id="address"
-                                   name="address" placeholder="Address" value="<%out.println(student.getAddress());%>" required>
+                                   name="address" placeholder="Address" value="<%out.print(student.getAddress());%>" required>
                         </div>
                         <div></div>
                     </div>
