@@ -83,38 +83,29 @@ h1 {
     cursor: pointer;
 }
 
-.success {
-    border-left: 4px solid rgb(41, 205, 15);
-}
-
-.error {
-    border-left: 4px solid rgb(218, 20, 20);
-}
-
-.warning {
-    border-left: 4px solid rgb(228, 228, 13);
-}
-
 .toastMessage.success {
     background-color: #fff;
     color: black;
     .toastIcon {
         color: rgb(72, 236, 72);
-    }
+    };
+    border-left: 4px solid rgb(41, 205, 15);
 }
 .toastMessage.error {
     background-color: #fff;
     color: black;
     .toastIcon {
         color: rgb(227, 60, 60);
-    }
+    };
+    border-left: 4px solid rgb(218, 20, 20);
 }
 .toastMessage.warning {
     background-color: #fff;
     color: black;
     .toastIcon {
         color: rgb(228, 228, 13);
-    }
+    };
+    border-left: 4px solid rgb(228, 228, 13);
 }
 
 @keyframes slideInLeft {

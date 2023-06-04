@@ -27,4 +27,3 @@
         <script src="./public/dist/js/myscript.js"></script>
     </head>
     <body class="hold-transition login-page">
-        
