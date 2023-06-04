@@ -156,7 +156,7 @@ public class DB {
 //        }
 //    }
 //
-    public static void updateStudent(Student student) {
+    public static boolean updateStudent(Student student) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -171,19 +171,28 @@ public class DB {
             statement.setString(6, student.getAddress());
             statement.executeUpdate();
             disconnect();
+            return true;
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
 
     public static boolean deleteStudent(String ID) {
         try {
+            if (!checkStudent(ID)) {
+                return false;
+            }
             connect();
             statement = conn.prepareStatement("delete from students where StudentID=?");
             statement.setString(1, ID);
             statement.execute();
             disconnect();
-            return true;
+            if (!checkStudent(ID)) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -80,6 +80,7 @@ public class Login extends HttpServlet {
 
         Cookie cookie = new Cookie("username", username);
         cookie.setMaxAge(60 * 60);
+        request.getSession().setAttribute("success", "Login succeed!");
         response.addCookie(cookie);
         response.sendRedirect("studentList.jsp");
 //        request.getRequestDispatcher("studentList.jsp").forward(request, response);

@@ -23,5 +23,8 @@
         <link rel="stylesheet" href="./public/dist/css/adminlte.min.css">
 
         <link rel="stylesheet" href="./public/dist/css/styles.css">
+
+        <script src="./public/dist/js/myscript.js"></script>
     </head>
     <body class="hold-transition login-page">
+        

@@ -31,7 +31,7 @@
 
 <div class="login-box">
     <div class="login-logo">
-        <b>Login form</b>
+        <b>Students Management</b>
     </div>
     <!-- /.login-logo -->
     <div class="card">

@@ -66,10 +66,16 @@ public class StudentController extends HttpServlet {
         }
         switch (action) {
             case "/delete": {
+                boolean ok = false;
                 String query = request.getQueryString();
                 if (query.split("=")[0].equals("id")) {
                     String ID = query.split("=")[1];
-                    DB.deleteStudent(ID);
+                    ok = DB.deleteStudent(ID);
+                }
+                if (ok) {
+                    request.getSession().setAttribute("success", "Delete Student succeed!");
+                } else {
+                    request.getSession().setAttribute("error", "Delete Student failed!");
                 }
                 response.sendRedirect("../studentList.jsp");
                 break;
@@ -84,7 +90,7 @@ public class StudentController extends HttpServlet {
                     if (ID == null) {
                         ID = "";
                     }
-                    
+
                     request.setAttribute("id", ID);
 //                        request.getRequestDispatcher("../updateStudentInfo.jsp").forward(request, response);
                     response.sendRedirect("../updateStudentInfo.jsp?id=" + ID);
@@ -98,7 +104,7 @@ public class StudentController extends HttpServlet {
                 break;
             }
         }
-        
+
     }
 
     /**
@@ -127,11 +133,15 @@ public class StudentController extends HttpServlet {
                     String Email = request.getParameter("email");
                     String Phone = request.getParameter("phone");
                     String Address = request.getParameter("address");
-                    
+
                     Student student = new Student(ID, Name, Birthday, Gender, Email, Phone, Address);
-                    
-                    DB.updateStudent(student);
-                    
+
+                    boolean ok = DB.updateStudent(student);
+
+                    if (ok) {
+                        request.getSession().setAttribute("success", "Update Student information succeed!");
+                    }
+
                     response.sendRedirect("../studentList.jsp");
                 } catch (ParseException e) {
                     System.out.println(e);
