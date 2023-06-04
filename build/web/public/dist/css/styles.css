@@ -2,6 +2,22 @@
     width: 100%;
 }
 
-.student-list{
+h1 {
     margin-top: 10px;
+    text-align: center;
+}
+
+.studentListTitle {
+    display: flex;
+    align-items: center;
+}
+
+.studentListTitle h1 {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.studentListTitle button {
+    width: auto;
+    height: 100%;
 }

@@ -35,6 +35,9 @@
 
 
 <div class="container-fluid">
+
+    <h1>Student List</h1>
+    <button id="cancelButton" class="btn btn-danger btn-block">Cancel</button>
     <div class="row">
         <!-- left column -->
         <div class="col-md-12">
