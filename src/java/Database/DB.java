@@ -200,16 +200,18 @@ public class DB {
     }
 
     public static void main(String[] args) {
-//        try {
-//            connect();
-//            statement = conn.prepareStatement("select user_name from user where user_name = 'ttNhan'");
-//            ResultSet resultSet = statement.executeQuery();
-//            boolean found = resultSet.next();
-//            disconnect();
-//            System.out.println(found);
-//        } catch (SQLException | ClassNotFoundException ex) {
-//            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+
+        System.out.println(checkAdmin("admin", "Admin@123"));
+        //        try {
+        //            conn = connect();
+        //            statement = conn.prepareStatement("select user_name from user where user_name = 'ttNhan'");
+        //            ResultSet resultSet = statement.executeQuery();
+        //            boolean found = resultSet.next();
+        //            disconnect();
+        //            System.out.println(found);
+        //        } catch (SQLException | ClassNotFoundException ex) {
+        //            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        //        }
 
 //        System.out.println(checkStudentExist("Nhan"));
     }
